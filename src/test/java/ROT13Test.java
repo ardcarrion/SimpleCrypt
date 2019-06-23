@@ -90,4 +90,24 @@ public class ROT13Test {
         assertTrue(actual.equals(Q1));
     }
 
+    @Test
+    public void cryptTest3() {
+        // Given
+        ROT13 cipher = new ROT13('a', 'g');
+
+        String Q1 = "Why did the chicken cross the road?";
+        System.out.println(Q1);
+        String Q2 = "To get to the other side!";
+        System.out.println(Q2);
+
+        // When
+        String A1 = cipher.encrypt(Q1);
+        String A2 = cipher.decrypt(A1);
+        System.out.println(A1);
+        System.out.println(A2);
+        // Then
+        //assertTrue(A1.equals(Q1));
+        assertEquals(A2, Q1);
+    }
+
 }
