@@ -1,4 +1,13 @@
+import javax.print.DocFlavor;
+
 import static java.lang.Character.*;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.List;
+import java.util.stream.Stream;
+
 
 public class ROT13  {
 
@@ -15,6 +24,27 @@ public class ROT13  {
 
     public String crypt(String text) throws UnsupportedOperationException {
         return encrypt(text);
+    }
+
+    public void encryptFile(String path) throws IOException {
+        FileOutputStream fileOut = null;
+        try {
+            String newPath = "/Users/aliciacarrion/dev/SimpleCrypt/src/test/java/text.enc";
+            fileOut = new FileOutputStream(newPath);
+            Path strToPath = Paths.get(path);
+            List<String> output = Files.readAllLines(strToPath, StandardCharsets.UTF_8);
+            for (String str : output) {
+                String encrypt = encrypt(str) + "\n";
+                byte[] strToBytes = encrypt.getBytes();
+                fileOut.write(strToBytes);
+            }
+            fileOut.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOut != null) fileOut.close();
+        }
+
     }
 
     public String encrypt(String text) {

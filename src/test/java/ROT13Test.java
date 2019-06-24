@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class ROT13Test {
@@ -108,6 +110,14 @@ public class ROT13Test {
         // Then
         //assertTrue(A1.equals(Q1));
         assertEquals(A2, Q1);
+    }
+
+    @Test
+    public void encryptFileTest() throws IOException {
+        ROT13 cipher = new ROT13();
+
+        cipher.encryptFile("/Users/aliciacarrion/dev/SimpleCrypt/src/test/java/sonnet18.txt");
+
     }
 
 }
