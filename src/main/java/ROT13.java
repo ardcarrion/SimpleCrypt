@@ -6,6 +6,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -27,22 +29,17 @@ public class ROT13  {
     }
 
     public void encryptFile(String path) throws IOException {
-        FileOutputStream fileOut = null;
+        PrintWriter writer = null;
         try {
-            String newPath = "/Users/aliciacarrion/dev/SimpleCrypt/src/test/java/text.enc";
-            fileOut = new FileOutputStream(newPath);
-            Path strToPath = Paths.get(path);
-            List<String> output = Files.readAllLines(strToPath, StandardCharsets.UTF_8);
-            for (String str : output) {
-                String encrypt = encrypt(str) + "\n";
-                byte[] strToBytes = encrypt.getBytes();
-                fileOut.write(strToBytes);
-            }
-            fileOut.flush();
+            Stream<String> stringStream = Files.lines(Paths.get("sonnet18.txt"), StandardCharsets.UTF_8);
+            writer =  new PrintWriter(new FileOutputStream("text.enc"));
+            String fileString = stringStream.collect(Collectors.joining("\n"));
+            writer.write(encrypt(fileString));
+            writer.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
-            if (fileOut != null) fileOut.close();
+            if (writer != null) writer.close();
         }
 
     }
