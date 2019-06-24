@@ -48,16 +48,18 @@ public class ROT13  {
     }
 
     public String encrypt(String text) {
+        return encrypt(text, shiftAmount);
+    }
+
+    public String encrypt(String text, int shiftAmount) {
         Character[] chars = stringToCharacterArray(text);
         StringBuilder result = new StringBuilder();
         for (Character c : chars) {
             if (Character.isLowerCase(c)) {
-                int shifted = c + shiftAmount;
-                if (shifted > 122) shifted -= 26;
+                int shifted = 'a' + (c + shiftAmount - 'a') % 26;
                 result.append((char)shifted);
             } else if (Character.isUpperCase(c)) {
-                int shifted = c + shiftAmount;
-                if (shifted > 90) shifted -= 26;
+                int shifted = 'A' + (c + shiftAmount - 'A') % 26;
                 result.append((char)shifted);
             } else result.append(c);
         }
@@ -73,20 +75,8 @@ public class ROT13  {
 
 
     public String decrypt(String text) {
-        Character[] chars = stringToCharacterArray(text);
-        StringBuilder result = new StringBuilder();
-        for (Character c : chars) {
-            if (Character.isLowerCase(c)) {
-                int shifted = c - shiftAmount;
-                if (shifted < 97) shifted += 26;
-                result.append((char)shifted);
-            } else if (Character.isUpperCase(c)) {
-                int shifted = c - shiftAmount;
-                if (shifted < 65) shifted += 26;
-                result.append((char)shifted);
-            } else result.append(c);
-        }
-        return result.toString();
+        int decryptShift = 26 - shiftAmount;
+        return encrypt(text, decryptShift);
     }
 
     public static String rotate(String s, Character c) {

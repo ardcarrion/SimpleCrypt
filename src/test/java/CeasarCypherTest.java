@@ -19,7 +19,7 @@ public class CeasarCypherTest {
         System.out.println(Q1);
         System.out.println(A1);
         // Then
-        assertEquals(actual, A1);
+        assertEquals (A1, actual);
 
         // When
         String actual2 = cipher.decrypt(Q2);

@@ -1,6 +1,12 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -117,6 +123,7 @@ public class ROT13Test {
         ROT13 cipher = new ROT13();
 
         cipher.encryptFile("/Users/aliciacarrion/dev/SimpleCrypt/src/test/java/sonnet18.txt");
+        Assert.assertNotNull("/Users/aliciacarrion/dev/SimpleCrypt/src/test/java/text.enc");
 
     }
 
